@@ -11,6 +11,8 @@
 #ifndef POSITION_SETPOINT_PUBLISHER_H_
 #define POSITION_SETPOINT_PUBLISHER_H_
 #include <ros/ros.h>
+#include <vector>
+#include <math.h>
 #include <mavros_msgs/PositionTarget.h>
 #include <mavros_msgs/State.h>
 #include <mavros_msgs/CommandBool.h>

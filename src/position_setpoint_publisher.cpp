@@ -33,7 +33,7 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 	position_target_msg_.type_mask = mavros_msgs::PositionTarget::IGNORE_VX | mavros_msgs::PositionTarget::IGNORE_VY |
                   mavros_msgs::PositionTarget::IGNORE_VZ | mavros_msgs::PositionTarget::IGNORE_AFX |
                   mavros_msgs::PositionTarget::IGNORE_AFY | mavros_msgs::PositionTarget::IGNORE_AFZ |
-                  mavros_msgs::PositionTarget::IGNORE_YAW;
+                  mavros_msgs::PositionTarget::IGNORE_YAW_RATE;
 	position_target_msg_.position.x = 0.0f;
 	position_target_msg_.position.y = 0.0f;
 	position_target_msg_.position.z = 0.0f;
@@ -57,8 +57,19 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
     last_request_ = ros::Time::now();
 	vehicle_arm_time_ = ros::Time::now();
 
+	// time intervals
+	std::vector<float> time_intervals = {0, 10, 15, 20, 25, 30};
+	// yaw setpoints
+	std::vector<float> yaw_setpoints = {0, 0, M_PI/2, M_PI, 3*M_PI/2, 0};
+	// setpoint iterator
+	int setpoint_iterator = 0;
+	
+	// check if all setpoints are of same size
+	// TODO : add check to make sure setpoints are valid eg: time in in ascending order
+	bool setpoint_valid = time_intervals.size()==yaw_setpoints.size();
+
 	// main while loop
-	if(!test_flag) {
+	if(!test_flag && setpoint_valid) {
 		while(ros::ok()){
 			
 			// check and move to offboard mode and arm
@@ -67,20 +78,23 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 			// Run mission if armed and in offboard mode
 			if(current_state_.armed && current_state_.mode == "OFFBOARD"){
 
-				// trigger landing if 10 seconds has passed after arming
-				if((ros::Time::now() - last_request_ > ros::Duration(10.0))){
+				// time since start
+				ros::Duration time_since_start = ros::Time::now() - last_request_;
+
+				// update setpoint_iterator
+				if(time_since_start.toSec()>time_intervals[setpoint_iterator]) setpoint_iterator++;
+
+				position_target_msg_.header.stamp = ros::Time::now();
+				position_target_msg_.position.x = 0;
+				position_target_msg_.position.y = 0;
+				position_target_msg_.position.z = 2;
+				position_target_msg_.yaw = yaw_setpoints[setpoint_iterator];
+
+				// trigger landing if time has crossed last value in time_intervals
+				if(time_since_start > ros::Duration(time_intervals.back())){
 					// END mission after moving to land mode
 					movetoLand();
 					break;
-				}
-				// else hover at the start position
-				else{
-					ROS_INFO("Hovering at home location..");
-					position_target_msg_.header.stamp = ros::Time::now();
-					position_target_msg_.position.x = 0;
-					position_target_msg_.position.y = 0;
-					position_target_msg_.position.z = 2;
-					position_target_msg_.yaw_rate = 0;
 				}
 			}
 			else{
