@@ -56,7 +56,7 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 	// ros time initialzation for timing the demo flight
     last_request_ = ros::Time::now();
 	vehicle_arm_time_ = ros::Time::now();
-	
+
 	// main while loop
 	if(!test_flag) {
 		while(ros::ok()){
@@ -69,12 +69,9 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 
 				// trigger landing if 10 seconds has passed after arming
 				if((ros::Time::now() - last_request_ > ros::Duration(10.0))){
-					ROS_INFO("Landing..");
-					if( set_mode_client_.call(land_set_mode_) && land_set_mode_.response.mode_sent){
-                    	ROS_INFO("Land Mode enabled");
-						// END mission after moving to land mode
-						break;
-					}
+					// END mission after moving to land mode
+					movetoLand();
+					break;
 				}
 				// else hover at the start position
 				else{
@@ -126,6 +123,15 @@ void PositionSetpointPublisher::movetoArmOffboard()
 			}
 			last_request_ = ros::Time::now();
 		}
+	}
+}
+
+void PositionSetpointPublisher::movetoLand()
+{	
+	// move to land mode
+	ROS_INFO("Landing..");
+	if( set_mode_client_.call(land_set_mode_) && land_set_mode_.response.mode_sent){
+		ROS_INFO("Land Mode enabled");
 	}
 }
 

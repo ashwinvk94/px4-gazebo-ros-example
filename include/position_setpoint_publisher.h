@@ -73,6 +73,11 @@ public:
 	 * 
 	 */
 	void movetoArmOffboard();
+	/**
+	 * @brief move the px4 system to land mode
+	 * 
+	 */
+	void movetoLand();
 
 };
 #endif // POSITION_SETPOINT_PUBLISHER_H_
