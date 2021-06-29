@@ -170,10 +170,10 @@ void ManualFlight::keyboardCallback(const keyboard::Key::ConstPtr& msg)
 }
 
 int main(int argc, char** argv) {
-	ros::init(argc, argv, "position_setpoint_publisher");
+	ros::init(argc, argv, "manual_flight");
     ros::NodeHandle n;
     ManualFlight rc_pub(n);
-    ROS_INFO("position_setpoint_publisher node initiated");
+    ROS_INFO("manual_flight node initiated");
     // ros::spin();
     return 0;
 }
