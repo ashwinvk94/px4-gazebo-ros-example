@@ -31,3 +31,8 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/Tools/sitl_gazebo
 roslaunch px4-gazebo-ros-example inspection.launch # automated inspection demo
 roslaunch px4-gazebo-ros-example manual.launch # manual flight
 ```
+### Manual Flight
+Use arrow keys to move around the position setpoint with respect to the world fixed frame
+Use w/s keys to move the height setpoints up/down
+Use a/d keys to yaw the drone
+Press 'l' to land/quit the program
