@@ -37,7 +37,7 @@ ManualFlight::ManualFlight(ros::NodeHandle& n, bool test_flag):
                   mavros_msgs::PositionTarget::IGNORE_YAW_RATE;
 	position_target_msg_.position.x = 0.0f;
 	position_target_msg_.position.y = 0.0f;
-	position_target_msg_.position.z = 0.0f;
+	position_target_msg_.position.z = 2.0f;
 	position_target_msg_.acceleration_or_force.x = 0.0f;
 	position_target_msg_.acceleration_or_force.y = 0.0f;
 	position_target_msg_.acceleration_or_force.z = 0.0f;
@@ -71,7 +71,6 @@ ManualFlight::ManualFlight(ros::NodeHandle& n, bool test_flag):
 			if(current_state_.armed && current_state_.mode == "OFFBOARD"){
 				
                 position_target_msg_.header.stamp = ros::Time::now();
-				position_target_msg_.position.z = 2;
 
 				// trigger landing if time has crossed last value in time_intervals
 				if(land_keyboard_trigger_){
@@ -151,13 +150,21 @@ void ManualFlight::keyboardCallback(const keyboard::Key::ConstPtr& msg)
                 // down key pressed
                 position_target_msg_.position.y -= 1;
                 break;
-        case 122:
-                // 'z' key pressed
+        case 97:
+                // 'a' key pressed
                 position_target_msg_.yaw += M_PI/4;
                 break;
-        case 120:
-                // 'x' key pressed
+        case 100:
+                // 'd' key pressed
                 position_target_msg_.yaw -= M_PI/4;
+                break;
+		case 119:
+                // 'w' key pressed
+                position_target_msg_.position.z += 0.5;
+                break;
+        case 115:
+                // 's' key pressed
+                position_target_msg_.position.z -= 0.5;
                 break;
         case 108:
                 // 'l' key pressed
