@@ -38,6 +38,3 @@ Use arrow keys to move around the position setpoint with respect to the world fi
 Use w/s keys to move the height setpoints up/down
 Use a/d keys to yaw the drone
 Press 'l' to land/quit the program
-
-
-![Image of Yaktocat]()
