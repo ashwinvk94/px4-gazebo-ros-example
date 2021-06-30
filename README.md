@@ -3,6 +3,8 @@
 This repository contains examples of how to send position/velocity/acceleration/yaw/yawrate setpoints to a px4 based system. This examples are based the gazebo simulator
 and uses mavros to communicate with the px4 system.
 
+[![IMAGE ALT TEXT HERE](https://github.com/ashwinvk94/px4-gazebo-ros-example/blob/master/demo.png?raw=true)](https://youtu.be/nsGc7zbpC5U)
+
 ## Instructions
 
 run the following commands:
@@ -38,4 +40,4 @@ Use a/d keys to yaw the drone
 Press 'l' to land/quit the program
 
 
-![Image of Yaktocat](https://github.com/ashwinvk94/px4-gazebo-ros-example/blob/master/demo.png?raw=true)
+![Image of Yaktocat]()
