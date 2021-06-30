@@ -58,9 +58,11 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 	vehicle_arm_time_ = ros::Time::now();
 
 	// time intervals
-	std::vector<float> time_intervals = {0, 10, 15, 20, 25, 30};
+	std::vector<float> time_intervals = {5, 20, 30, 40, 50, 60};
+	// position setpoints
+	std::vector<std::pair<float,float>> position_setpoints = {{0, 0}, {4, 0}, {4, -4}, {-7, -4}, {-7, 0}, {0, 0}};
 	// yaw setpoints
-	std::vector<float> yaw_setpoints = {0, 0, M_PI/2, M_PI, 3*M_PI/2, 0};
+	std::vector<float> yaw_setpoints = {0, -3*M_PI/4, 3*M_PI/4, M_PI/4, -M_PI/4, 0};
 	// setpoint iterator
 	int setpoint_iterator = 0;
 	
@@ -81,12 +83,10 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 				// time since start
 				ros::Duration time_since_start = ros::Time::now() - last_request_;
 
-				// update setpoint_iterator
-				if(time_since_start.toSec()>time_intervals[setpoint_iterator]) setpoint_iterator++;
 
 				position_target_msg_.header.stamp = ros::Time::now();
-				position_target_msg_.position.x = 0;
-				position_target_msg_.position.y = 0;
+				position_target_msg_.position.x = position_setpoints[setpoint_iterator].first;
+				position_target_msg_.position.y = position_setpoints[setpoint_iterator].second;
 				position_target_msg_.position.z = 2;
 				position_target_msg_.yaw = yaw_setpoints[setpoint_iterator];
 
@@ -96,6 +96,9 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 					movetoLand();
 					break;
 				}
+
+				// update setpoint_iterator
+				if(time_since_start.toSec()>time_intervals[setpoint_iterator]) setpoint_iterator++;
 			}
 			else{
 				// publish zero position setpoint when not armed and in offboard
