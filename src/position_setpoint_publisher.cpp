@@ -58,7 +58,7 @@ PositionSetpointPublisher::PositionSetpointPublisher(ros::NodeHandle& n, bool te
 	vehicle_arm_time_ = ros::Time::now();
 
 	// time intervals
-	std::vector<float> time_intervals = {5, 20, 30, 40, 50, 60};
+	std::vector<float> time_intervals = {15, 30, 45, 60, 75, 90};
 	// position setpoints
 	std::vector<std::pair<float,float>> position_setpoints = {{0, 0}, {4, 0}, {4, -4}, {-7, -4}, {-7, 0}, {0, 0}};
 	// yaw setpoints
