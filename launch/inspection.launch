@@ -1,0 +1,11 @@
+<launch>
+  <!-- launching simulator -->
+  <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+      <arg name="world" value="$(find mavlink_sitl_gazebo)/worlds/warehouse.world"/>
+  </include>
+
+  <!-- launching setpoint publisher -->
+  <node pkg="px4-gazebo-ros-example" type="position_setpoint_publisher" name="position_setpoint_publisher" required="true" output="screen">
+  </node>
+
+</launch>
