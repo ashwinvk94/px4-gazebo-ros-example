@@ -3,7 +3,9 @@
 This repository contains examples of how to send position/velocity/acceleration/yaw/yawrate setpoints to a px4 based system. This examples are based the gazebo simulator
 and uses mavros to communicate with the px4 system.
 
-## Instructions
+[![IMAGE ALT TEXT HERE](https://github.com/ashwinvk94/px4-gazebo-ros-example/blob/master/demo.png?raw=true)](https://youtu.be/nsGc7zbpC5U)
+
+## How to building and run the code
 
 run the following commands:
 ```
@@ -29,13 +31,10 @@ source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/px4_sitl_default
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/Tools/sitl_gazebo
 roslaunch px4-gazebo-ros-example inspection.launch # automated inspection demo
-roslaunch px4-gazebo-ros-example manual.launch # manual flight
+roslaunch px4-gazebo-ros-example manual.launch # manual flight using keyboard. Find instructions below
 ```
-### Manual Flight
-Use arrow keys to move around the position setpoint with respect to the world fixed frame
-Use w/s keys to move the height setpoints up/down
-Use a/d keys to yaw the drone
-Press 'l' to land/quit the program
-
-
-![Image of Yaktocat](https://github.com/ashwinvk94/px4-gazebo-ros-example/blob/master/demo.png?raw=true)
+### Manual Flight Keyboard Instructions
+**arrow** keys => change position setpoint with respect to the world fixed frame  
+**w/s** keys => change height setpoints up/down  
+**a/d** keys => change yaw setpoints by +/- 45 deg  
+**l** key => land/quit the program  
