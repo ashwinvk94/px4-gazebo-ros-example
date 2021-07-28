@@ -20,11 +20,12 @@ git clone https://github.com/lrse/ros-keyboard
 cd ~/catkin_make_ws
 rosdep install --from-paths src --ignore-src -r -y
 catkin_make
-source /devel/setup.bash
+source devel/setup.bash
 roscd keyboard
 roscd px4-gazebo-ros-example
 git clone https://github.com/PX4/PX4-Autopilot.git --recursive
 cd PX4-Autopilot
+git checkout v1.12.0
 DONT_RUN=1 make px4_sitl_default gazebo
 source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/px4_sitl_default
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)
