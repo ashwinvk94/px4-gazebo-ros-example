@@ -9,9 +9,8 @@ and uses mavros to communicate with the px4 system.
 
 run the following commands:
 ```
-
-wget https://raw.githubusercontent.com/PX4/PX4-Autopilot/master/Tools/setup/ubuntu.sh
-bash ubuntu.sh
+git clone https://github.com/PX4/PX4-Autopilot.git --recursivebash ubuntu.sh
+bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
 sudo reboot
 wget https://raw.githubusercontent.com/PX4/Devguide/master/build_scripts/ubuntu_sim_ros_melodic.sh
 bash ubuntu_sim_ros_melodic.sh
