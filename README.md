@@ -14,7 +14,7 @@ bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
 sudo reboot
 wget https://raw.githubusercontent.com/PX4/Devguide/master/build_scripts/ubuntu_sim_ros_melodic.sh
 bash ubuntu_sim_ros_melodic.sh
-mkdir ~/catkin_make_ws/src
+mkdir -p ~/catkin_make_ws/src
 git clone https://github.com/ashwinvk94/px4-gazebo-ros-example
 git clone https://github.com/lrse/ros-keyboard
 cd ~/catkin_make_ws
